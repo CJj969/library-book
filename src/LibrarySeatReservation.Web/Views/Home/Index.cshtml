@@ -1,0 +1,51 @@
+﻿@model LibrarySeatReservation.Web.Models.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "首页";
+}
+
+<div class="text-center py-4">
+    <h1 class="display-6 fw-bold">欢迎使用座位预约系统</h1>
+    <p class="text-muted">图书馆座位，在线预约，轻松自习</p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-4">
+        <div class="card text-center p-3 border-0 shadow-sm">
+            <div class="fs-2 fw-bold text-primary">@Model.TotalSeats</div>
+            <div class="text-muted small">总座位</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center p-3 border-0 shadow-sm">
+            <div class="fs-2 fw-bold text-success">@Model.AvailableSeats</div>
+            <div class="text-muted small">可用座位</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center p-3 border-0 shadow-sm">
+            <div class="fs-2 fw-bold text-danger">@Model.ReservedToday</div>
+            <div class="text-muted small">今日已约</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-12">
+        <a asp-controller="Seat" asp-action="Index" class="text-decoration-none">
+            <div class="card p-4 border-0 shadow-sm text-center">
+                <div class="fs-1 mb-2">🔍</div>
+                <h5 class="card-title">查座预约</h5>
+                <p class="card-text text-muted small">查看座位状态，预约空闲座位</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-12">
+        <a asp-controller="Reservation" asp-action="MyReservations" class="text-decoration-none">
+            <div class="card p-4 border-0 shadow-sm text-center">
+                <div class="fs-1 mb-2">📋</div>
+                <h5 class="card-title">我的预约</h5>
+                <p class="card-text text-muted small">查看和取消我的预约记录</p>
+            </div>
+        </a>
+    </div>
+</div>

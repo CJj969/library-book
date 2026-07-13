@@ -25,6 +25,9 @@ Thumbs.db
 # Database
 *.mdf
 *.ldf
+*.db
+*.db-shm
+*.db-wal
 
 # Node
 node_modules/
