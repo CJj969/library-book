@@ -142,6 +142,72 @@ namespace LibrarySeatReservation.Web.Services
             return (true, "取消成功");
         }
 
+        public List<AdminReservationItem> GetAllReservations(
+            string statusFilter, DateTime? dateFilter, string areaFilter)
+        {
+            var query = _context.Reservations
+                .Include(r => r.User)
+                .Include(r => r.Seat)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(statusFilter))
+                query = query.Where(r => r.Status == statusFilter);
+
+            if (dateFilter.HasValue)
+                query = query.Where(r => r.ReserveDate == dateFilter.Value);
+
+            if (!string.IsNullOrEmpty(areaFilter))
+                query = query.Where(r => r.Seat.Area == areaFilter);
+
+            var list = query.OrderByDescending(r => r.CreatedAt).ToList();
+
+            var now = DateTime.Now;
+            var today = DateTime.Today;
+
+            return list.Select(r =>
+            {
+                var isExpired = r.ReserveDate < today ||
+                    (r.ReserveDate == today &&
+                     TimeSlotEndHours.TryGetValue(r.TimeSlot, out var endHour) &&
+                     now.Hour >= endHour);
+
+                var canCancel = r.Status == "已预约" && !isExpired;
+
+                return new AdminReservationItem
+                {
+                    Id = r.Id,
+                    UserName = r.User?.Name ?? "",
+                    SeatNumber = r.Seat?.SeatNumber ?? "",
+                    Area = r.Seat?.Area ?? "",
+                    ReserveDate = r.ReserveDate,
+                    TimeSlot = r.TimeSlot,
+                    Status = r.Status,
+                    CanCancel = canCancel
+                };
+            }).ToList();
+        }
+
+        public (bool Success, string Message) AdminCancelReservation(int reservationId)
+        {
+            var reservation = _context.Reservations.Find(reservationId);
+            if (reservation == null)
+                return (false, "预约记录不存在");
+
+            if (reservation.Status != "已预约")
+                return (false, "该预约已取消或已完成，无需再次操作");
+
+            if (reservation.ReserveDate < DateTime.Today)
+                return (false, "已过期的预约无法取消");
+
+            if (reservation.ReserveDate == DateTime.Today && IsTimeSlotPast(reservation.TimeSlot))
+                return (false, "当前时段已过，无法取消");
+
+            reservation.Status = "已取消";
+            _context.SaveChanges();
+
+            return (true, "取消成功");
+        }
+
         private static bool IsTimeSlotPast(string timeSlot)
         {
             var now = DateTime.Now;

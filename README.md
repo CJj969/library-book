@@ -85,7 +85,7 @@ prototype/
 
 ## 当前阶段
 
-**Sprint 2 — 管理端功能（第 1 轮进行中，25%）**。已完成管理员登录 + 权限拦截基础。
+**Sprint 2 — 管理端功能（第 1 轮进行中，50%）**。已完成管理员登录、权限拦截、预约管理（含筛选+取消）、座位管理列表。
 详见 [docs/14-管理端与权限开发记录.md](docs/14-管理端与权限开发记录.md)。
 
 仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
@@ -103,7 +103,7 @@ dotnet run
 |--------|------|
 | M1 需求与设计 | ✅ 已完成 |
 | M2 核心预约闭环 | ✅ Sprint 1 已完成 |
-| M3 管理端功能 | ⏳ Sprint 2（25%） |
+| M3 管理端功能 | ⏳ Sprint 2（50%） |
 | M4 集成验收与提交 | 📅 Sprint 3 |
 
 ---
@@ -132,9 +132,13 @@ dotnet run
 | 管理员登录（账号密码验证） | GET/POST /Admin/Login | ✅ |
 | 权限拦截（未登录跳转登录页） | AdminBaseController | ✅ |
 | 管理员退出 | POST /Admin/Logout | ✅ |
-| 预约管理列表 + 筛选 | GET /Admin/Reservations | ⏳ T12-04 |
-| 管理员取消预约 | POST /Admin/Reservations/Cancel/{id} | ⏳ T12-05 |
-| 座位管理 CRUD | GET+POST /Admin/Seats/* | ⏳ T12-06 ~ T12-10 |
+| 预约管理列表 + 筛选 | GET /Admin/Reservations | ✅ |
+| 管理员取消预约 | POST /Admin/Reservations/Cancel/{id} | ✅ |
+| 座位管理列表 | GET /Admin/Seats | ✅ |
+| 新增座位 | POST /Admin/Seats/Create | ⏳ T12-07 |
+| 编辑座位 | POST /Admin/Seats/Edit/{id} | ⏳ T12-08 |
+| 删除座位 | POST /Admin/Seats/Delete/{id} | ⏳ T12-09 |
+| 座位状态切换 | POST /Admin/Seats/ToggleStatus/{id} | ⏳ T12-10 |
 | 统计页 | GET /Admin/Statistics | ⏳ T12-11 ~ T12-12 |
 
 ## 数据库初始化方式

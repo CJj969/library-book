@@ -27,9 +27,20 @@ namespace LibrarySeatReservation.Web.Services
         public List<TimeSlotOccupancy> TimeSlots { get; set; }
     }
 
+    public class SeatAdminItem
+    {
+        public int Id { get; set; }
+        public string SeatNumber { get; set; }
+        public string Area { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+        public int ReservationCount { get; set; }
+    }
+
     public interface ISeatService
     {
         List<SeatItem> GetAllSeatsWithStatus(DateTime today);
         SeatDetailResult GetSeatDetail(int seatId, DateTime today);
+        List<SeatAdminItem> GetAllSeats();
     }
 }

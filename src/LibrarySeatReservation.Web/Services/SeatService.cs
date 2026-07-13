@@ -41,6 +41,23 @@ namespace LibrarySeatReservation.Web.Services
             }).ToList();
         }
 
+        public List<SeatAdminItem> GetAllSeats()
+        {
+            return _context.Seats
+                .OrderBy(s => s.Area)
+                .ThenBy(s => s.SeatNumber)
+                .Select(s => new SeatAdminItem
+                {
+                    Id = s.Id,
+                    SeatNumber = s.SeatNumber,
+                    Area = s.Area,
+                    Description = s.Description,
+                    IsActive = s.IsActive,
+                    ReservationCount = _context.Reservations.Count(r => r.SeatId == s.Id)
+                })
+                .ToList();
+        }
+
         public SeatDetailResult GetSeatDetail(int seatId, DateTime today)
         {
             var seat = _context.Seats.Find(seatId);
