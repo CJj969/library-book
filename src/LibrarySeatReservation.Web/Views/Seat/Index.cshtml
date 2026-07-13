@@ -40,7 +40,7 @@ else
                             <div class="fw-bold">@seat.SeatNumber</div>
                             <small class="text-muted">@seat.Description</small>
                             <div class="mt-1">
-                                <span class="badge @(isMaintenance ? "bg-warning text-dark" : (seat.IsReservedToday ? "bg-secondary" : "bg-success"))">@statusText</span>
+                                <span class="badge @(isMaintenance ? "badge-maintenance" : (seat.IsReservedToday ? "badge-reserved" : "badge-free"))">@statusText</span>
                             </div>
                         </div>
                     </div>

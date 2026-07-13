@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
-using LibrarySeatReservation.Web.Data;
 using LibrarySeatReservation.Web.Models.ViewModels;
 using LibrarySeatReservation.Web.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySeatReservation.Web.Controllers;
 
 public class ReservationController : Controller
 {
     private readonly IReservationService _reservationService;
-    private readonly AppDbContext _context;
+    private readonly IAdminService _adminService;
 
-    public ReservationController(IReservationService reservationService, AppDbContext context)
+    public ReservationController(IReservationService reservationService, IAdminService adminService)
     {
         _reservationService = reservationService;
-        _context = context;
+        _adminService = adminService;
     }
 
     public IActionResult MyReservations()
@@ -86,18 +84,18 @@ public class ReservationController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Switch(int userId)
     {
-        var user = _context.Users.Find(userId);
-        if (user == null)
+        var (found, userName, role) = _adminService.GetSwitchUser(userId);
+        if (!found)
         {
             TempData["Error"] = "账号不存在";
             return RedirectToAction("Index", "Home");
         }
 
-        HttpContext.Session.SetInt32("UserId", user.Id);
-        HttpContext.Session.SetString("UserName", user.Name);
-        HttpContext.Session.SetString("UserRole", user.Role);
+        HttpContext.Session.SetInt32("UserId", userId);
+        HttpContext.Session.SetString("UserName", userName);
+        HttpContext.Session.SetString("UserRole", role);
 
-        TempData["Success"] = $"已切换至 {user.Name}";
+        TempData["Success"] = $"已切换至 {userName}";
         var referer = Request.Headers["Referer"].FirstOrDefault();
         return Redirect(referer ?? "/");
     }

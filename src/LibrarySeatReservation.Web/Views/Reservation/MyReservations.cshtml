@@ -19,10 +19,10 @@ else
         {
             var statusBadge = item.DisplayStatus switch
             {
-                "已预约" => "bg-primary",
-                "已取消" => "bg-secondary",
-                "已完成" => "bg-info",
-                _ => "bg-secondary"
+                "已预约" => "badge-reserved",
+                "已取消" => "badge-cancelled",
+                "已完成" => "badge-completed",
+                _ => "badge-secondary"
             };
 
             <div class="list-group-item list-group-item-action">

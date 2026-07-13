@@ -29,5 +29,14 @@ namespace LibrarySeatReservation.Web.Services
                 AdminName = admin.Name
             };
         }
+
+        public (bool Found, string UserName, string Role) GetSwitchUser(int userId)
+        {
+            var user = _context.Users.Find(userId);
+            if (user == null)
+                return (false, "", "");
+
+            return (true, user.Name, user.Role);
+        }
     }
 }

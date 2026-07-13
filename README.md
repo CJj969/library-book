@@ -92,7 +92,7 @@ prototype/
 
 ## 当前阶段
 
-**Sprint 4 — 功能完善与体验优化（第 1 轮进行中，60%）。** 已完成 AntiForgeryToken 安全加固、空状态与提示统一、维修中座位边界处理。
+**Sprint 4 — 功能完善与体验优化 ✅ 已交付（5/5 100%）。** AntiForgeryToken 安全加固、空状态与提示统一、维修中座位边界处理、Badge 色值统一、视觉细节优化。
 详见 [docs/15-功能完善与体验优化记录.md](docs/15-功能完善与体验优化记录.md)。当前 docs 编号：Sprint 3 验收报告和 Sprint 4 记录共用 "15-" 前缀。
 
 仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
@@ -112,7 +112,7 @@ dotnet run
 | M2 核心预约闭环 | ✅ Sprint 1 已完成 |
 | M3 管理端功能 | ✅ Sprint 2 已完成 |
 | M4 集成验收与提交 | ✅ Sprint 3（100%） |
-| M5 功能完善与体验优化 | 🔄 Sprint 4（60%） |
+| M5 功能完善与体验优化 | ✅ Sprint 4（100%） |
 
 ---
 

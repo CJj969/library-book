@@ -5,11 +5,12 @@ namespace LibrarySeatReservation.Web.Services
         public bool Success { get; set; }
         public string Message { get; set; }
         public int? AdminId { get; set; }
-        public string AdminName { get; set; }
+        public string? AdminName { get; set; }
     }
 
     public interface IAdminService
     {
         AdminLoginResult ValidateLogin(string username, string password);
+        (bool Found, string UserName, string Role) GetSwitchUser(int userId);
     }
 }
