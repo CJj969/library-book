@@ -3,6 +3,9 @@
 @{
     var userName = HttpContextAccessor?.HttpContext?.Session.GetString("UserName");
     var userId = HttpContextAccessor?.HttpContext?.Session.GetInt32("UserId");
+    var userRole = HttpContextAccessor?.HttpContext?.Session.GetString("UserRole");
+    var adminName = HttpContextAccessor?.HttpContext?.Session.GetString("AdminName");
+    var isAdmin = userRole == "Admin";
 }
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -23,37 +26,71 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">首页</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Seat" asp-action="Index">查座</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="MyReservations">我的预约</a>
-                        </li>
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Reservations">预约管理</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Seats">座位管理</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Statistics">统计</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">返回前台</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Seat" asp-action="Index">查座</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="MyReservations">我的预约</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                                @(userName ?? "体验账号")
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <form asp-controller="Reservation" asp-action="Switch" method="post" style="display:inline;">
-                                    <button type="submit" name="userId" value="1" class="dropdown-item">学生 A</button>
-                                    <button type="submit" name="userId" value="2" class="dropdown-item">学生 B</button>
-                                    <button type="submit" name="userId" value="3" class="dropdown-item">学生 C</button>
-                                    <button type="submit" name="userId" value="4" class="dropdown-item">学生 D</button>
-                                </form>
-                                @if (userId != null)
-                                {
-                                    <div class="dropdown-divider"></div>
-                                    <form asp-controller="Reservation" asp-action="Logout" method="post" style="display:inline;">
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    @(adminName ?? "管理员")
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <form asp-controller="Admin" asp-action="Logout" method="post" style="display:inline;">
                                         <button type="submit" class="dropdown-item text-danger">退出登录</button>
                                     </form>
-                                }
-                            </div>
-                        </li>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                    @(userName ?? "体验账号")
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <form asp-controller="Reservation" asp-action="Switch" method="post" style="display:inline;">
+                                        <button type="submit" name="userId" value="1" class="dropdown-item">学生 A</button>
+                                        <button type="submit" name="userId" value="2" class="dropdown-item">学生 B</button>
+                                        <button type="submit" name="userId" value="3" class="dropdown-item">学生 C</button>
+                                        <button type="submit" name="userId" value="4" class="dropdown-item">学生 D</button>
+                                    </form>
+                                    @if (userId != null)
+                                    {
+                                        <div class="dropdown-divider"></div>
+                                        <form asp-controller="Reservation" asp-action="Logout" method="post" style="display:inline;">
+                                            <button type="submit" class="dropdown-item text-danger">退出登录</button>
+                                        </form>
+                                    }
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
