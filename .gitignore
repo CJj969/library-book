@@ -29,6 +29,10 @@ Thumbs.db
 # Node
 node_modules/
 
+# Local config
+.gitee-token
+auto-sync.sh
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
