@@ -36,6 +36,7 @@ public class ReservationController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Create(CreateReservationViewModel model)
     {
         var userId = HttpContext.Session.GetInt32("UserId");
@@ -61,6 +62,7 @@ public class ReservationController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Cancel(int id)
     {
         var userId = HttpContext.Session.GetInt32("UserId");
@@ -81,6 +83,7 @@ public class ReservationController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Switch(int userId)
     {
         var user = _context.Users.Find(userId);
@@ -100,6 +103,7 @@ public class ReservationController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Logout()
     {
         HttpContext.Session.Remove("UserId");

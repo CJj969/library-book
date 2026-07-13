@@ -89,6 +89,7 @@
                                 {
                                     <form asp-controller="Admin" asp-action="CancelReservation" method="post" style="display:inline;"
                                           onsubmit="return confirm('确定取消 @item.UserName 的 @item.SeatNumber @item.TimeSlot 预约？');">
+                                        @Html.AntiForgeryToken()
                                         <input type="hidden" name="id" value="@item.Id" />
                                         <button type="submit" class="btn btn-danger btn-sm">取消预约</button>
                                     </form>

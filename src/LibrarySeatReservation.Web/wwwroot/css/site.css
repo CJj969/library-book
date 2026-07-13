@@ -134,6 +134,12 @@ body {
   opacity: 0.8;
 }
 
+.seat-maintenance {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  opacity: 0.8;
+}
+
 .disabled-link {
   pointer-events: none;
 }

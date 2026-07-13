@@ -127,8 +127,10 @@ namespace LibrarySeatReservation.Web.Services
             if (reservation.UserId != userId)
                 return (false, "无权取消他人的预约");
 
+            if (reservation.Status == "已取消")
+                return (false, "该预约已取消，无需重复操作");
             if (reservation.Status != "已预约")
-                return (false, "该预约已取消或已完成，无需再次操作");
+                return (false, "该预约已完成，无法取消");
 
             if (reservation.ReserveDate < DateTime.Today)
                 return (false, "已过期的预约无法取消");
@@ -193,8 +195,10 @@ namespace LibrarySeatReservation.Web.Services
             if (reservation == null)
                 return (false, "预约记录不存在");
 
+            if (reservation.Status == "已取消")
+                return (false, "该预约已取消，无需重复操作");
             if (reservation.Status != "已预约")
-                return (false, "该预约已取消或已完成，无需再次操作");
+                return (false, "该预约已完成，无法取消");
 
             if (reservation.ReserveDate < DateTime.Today)
                 return (false, "已过期的预约无法取消");

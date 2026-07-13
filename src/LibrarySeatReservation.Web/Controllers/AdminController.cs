@@ -35,6 +35,7 @@ namespace LibrarySeatReservation.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(AdminLoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -56,6 +57,8 @@ namespace LibrarySeatReservation.Web.Controllers
             return RedirectToAction("Reservations");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("AdminId");
@@ -90,6 +93,7 @@ namespace LibrarySeatReservation.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CancelReservation(int id)
         {
             var (success, message) = _reservationService.AdminCancelReservation(id);
@@ -109,6 +113,7 @@ namespace LibrarySeatReservation.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateSeat(SeatEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -129,6 +134,7 @@ namespace LibrarySeatReservation.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditSeat(SeatEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -149,6 +155,7 @@ namespace LibrarySeatReservation.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteSeat(int id)
         {
             var (success, message) = _seatService.DeleteSeat(id);
@@ -162,6 +169,7 @@ namespace LibrarySeatReservation.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ToggleSeatStatus(int id)
         {
             var (success, message) = _seatService.ToggleSeatStatus(id);

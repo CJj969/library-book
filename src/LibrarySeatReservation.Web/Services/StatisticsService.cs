@@ -32,7 +32,10 @@ namespace LibrarySeatReservation.Web.Services
             var availableSeats = _context.Seats.Count(s => s.IsActive);
             var totalReservations = _context.Reservations.Count();
             var todayReservations = _context.Reservations
-                .Count(r => r.ReserveDate == today && r.Status == "已预约");
+                .Where(r => r.ReserveDate == today && r.Status == "已预约")
+                .Select(r => r.SeatId)
+                .Distinct()
+                .Count();
 
             var utilizationRate = availableSeats > 0
                 ? Math.Round((double)todayReservations / availableSeats * 100, 1)

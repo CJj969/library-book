@@ -63,6 +63,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <form asp-controller="Admin" asp-action="Logout" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
                                         <button type="submit" class="dropdown-item text-danger">退出登录</button>
                                     </form>
                                 </div>
@@ -76,6 +77,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <form asp-controller="Reservation" asp-action="Switch" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
                                         <button type="submit" name="userId" value="1" class="dropdown-item">学生 A</button>
                                         <button type="submit" name="userId" value="2" class="dropdown-item">学生 B</button>
                                         <button type="submit" name="userId" value="3" class="dropdown-item">学生 C</button>
@@ -85,6 +87,7 @@
                                     {
                                         <div class="dropdown-divider"></div>
                                         <form asp-controller="Reservation" asp-action="Logout" method="post" style="display:inline;">
+                                            @Html.AntiForgeryToken()
                                             <button type="submit" class="dropdown-item text-danger">退出登录</button>
                                         </form>
                                     }

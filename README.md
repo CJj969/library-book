@@ -36,7 +36,9 @@ src/
     │       ├── MyReservationsViewModel.cs
     │       ├── CreateReservationViewModel.cs
     │       ├── AdminLoginViewModel.cs    # Sprint 2
-    │       └── AdminStatisticsViewModel.cs  # Sprint 2
+    │       ├── AdminReservationsViewModel.cs  # Sprint 2
+    │       ├── AdminStatisticsViewModel.cs  # Sprint 2
+    │       └── SeatEditViewModel.cs      # Sprint 2
     ├── Services/
     │   ├── ISeatService.cs / SeatService.cs
     │   ├── IReservationService.cs / ReservationService.cs
@@ -70,7 +72,10 @@ docs/
 ├── 10-开发准备与Sprint0.md
 ├── 11-开发前一致性总审计.md
 ├── 12-开发起步与骨架记录.md
-├── 13-用户端主链路开发记录.md          # ← 当前阶段
+├── 13-用户端主链路开发记录.md
+├── 14-管理端与权限开发记录.md
+├── 15-验收测试报告.md
+├── 16-Sprint3-视觉对齐与验收记录.md          # ← 当前阶段
 └── 项目任务板与迭代记录.md
 prototype/
 ├── static-v1/
@@ -85,8 +90,8 @@ prototype/
 
 ## 当前阶段
 
-**Sprint 3 — 视觉对齐与全链路测试 ✅ 已交付。** 404 错误页、用户端/管理端视觉对齐、全链路验收 17 项 + 边界 8 项全部通过。
-详见 [docs/14-管理端与权限开发记录.md](docs/14-管理端与权限开发记录.md)。
+**Sprint 4 — 功能完善与体验优化（第 1 轮进行中，60%）。** 已完成 AntiForgeryToken 安全加固、空状态与提示统一、维修中座位边界处理。
+详见 [docs/15-功能完善与体验优化记录.md](docs/15-功能完善与体验优化记录.md)。
 
 仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
 
@@ -105,6 +110,7 @@ dotnet run
 | M2 核心预约闭环 | ✅ Sprint 1 已完成 |
 | M3 管理端功能 | ✅ Sprint 2 已完成 |
 | M4 集成验收与提交 | ✅ Sprint 3（100%） |
+| M5 功能完善与体验优化 | 🔄 Sprint 4（60%） |
 
 ---
 
@@ -124,6 +130,13 @@ dotnet run
 | 取消预约（归属 + 状态 + 时间校验） | POST /Reservation/Cancel/{id} | ✅ |
 | 体验账号切换（导航栏下拉） | POST /Reservation/Switch | ✅ |
 | 退出登录 | POST /Reservation/Logout | ✅ |
+
+### 安全加固（Sprint 4）
+| 功能 | 路由 | 状态 |
+|------|------|------|
+| 所有 POST 表单 AntiForgeryToken 保护 | — | ✅ |
+| 取消提示区分"已取消"/"已完成" | — | ✅ |
+| 维修中座位独立显示 + 不可预约拦截 | — | ✅ |
 
 ### 管理端
 
@@ -163,8 +176,8 @@ dotnet run
 打开首页 → 点击"查座" → 选择空闲座位查看详情 → 选择日期和时段 → 提交预约 → 查看"我的预约" → 点击"取消预约"
 
 ### 管理端
-访问 `/Admin/Login` → 输入 管理员 / 123456 → 登录后进入预约管理（预约管理/座位管理/统计，部分待实现）
+访问 `/Admin/Login` → 输入 管理员 / 123456 → 登录后进入预约管理（预约管理/座位管理/统计，全部功能已完成）
 
 ## 已知限制
 - **`dotnet-ef` 不可用**：.NET 6 SDK（arm64）与 `dotnet-ef`（x86_64）架构不匹配，使用 `EnsureCreated()` 替代。
-- **手机端适配**：管理端页面为桌面优先设计，手机端未做完整适配（Sprint 3 计划）。
+- **管理端手机适配**：管理端页面为桌面优先（1200px），手机端布局需进一步优化（Sprint 4 计划）。
