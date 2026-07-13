@@ -1,6 +1,50 @@
+@model LibrarySeatReservation.Web.Models.ViewModels.SeatListViewModel
 @{
     ViewData["Title"] = "座位列表";
 }
 
-<h2>座位列表</h2>
-<p class="text-muted">座位管理功能将在 Sprint 1 中实现。</p>
+<h2 class="mb-3">座位列表</h2>
+
+<ul class="nav nav-tabs mb-3">
+    @foreach (var area in Model.Areas)
+    {
+        <li class="nav-item">
+            <a class="nav-link @(area == Model.CurrentArea ? "active" : "")"
+               asp-action="Index" asp-route-area="@area">@area</a>
+        </li>
+    }
+</ul>
+
+@if (!Model.Seats.Any())
+{
+    <div class="text-center py-5 text-muted">
+        <p>该区域暂无座位</p>
+    </div>
+}
+else
+{
+    <div class="row g-2">
+        @foreach (var seat in Model.Seats)
+        {
+            var statusClass = seat.IsReservedToday ? "seat-occupied" : "seat-free";
+            var statusText = seat.IsReservedToday
+                ? (seat.IsActive ? "已预约" : "维修中")
+                : "空闲";
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <a asp-action="Detail" asp-route-id="@seat.Id"
+                   class="text-decoration-none @(seat.IsReservedToday ? "disabled-link" : "")">
+                    <div class="card seat-card @statusClass mb-2">
+                        <div class="card-body text-center p-2">
+                            <div class="fw-bold">@seat.SeatNumber</div>
+                            <small class="text-muted">@seat.Description</small>
+                            <div class="mt-1">
+                                <span class="badge @(seat.IsReservedToday ? "bg-secondary" : "bg-success")">@statusText</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}

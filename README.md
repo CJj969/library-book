@@ -6,117 +6,128 @@
 
 | 技术 | 版本 | 用途 |
 |------|------|------|
-| ASP.NET Core MVC | .NET 8 | Web 框架 |
-| Razor | .NET 8 | 服务端页面模板 |
-| Entity Framework Core | 8.x | ORM / 数据访问 |
-| SQL Server LocalDB | 随 VS/SSDT 安装 | 本地开发数据库 |
+| ASP.NET Core MVC | .NET 6 | Web 框架 |
+| Razor | .NET 6 | 服务端页面模板 |
+| Entity Framework Core | 6.0.x | ORM / 数据访问 |
+| SQLite | 6.0.x | 本地开发数据库 |
 | Bootstrap | 5.x | 前端 UI 框架 |
 | 自定义 CSS | — | 覆盖 Bootstrap 默认样式 |
 
 ## 目录结构
 
-### 当前已存在（设计文档阶段）
-
 ```
-SeatBook/
-├── docs/
-│   ├── 01-项目立项单.md                    # 项目发起与范围
-│   ├── 02-需求分析与MVP确认.md             # 需求优先级矩阵
-│   ├── 03-PRD-Lite.md                     # 产品需求文档
-│   ├── 04-页面树与业务流程.md               # 页面导航与状态机
-│   ├── 05-页面卡与UI规范.md                # 页面卡与色值规范
-│   ├── 06-静态原型与原型评审.md             # 原型说明
-│   ├── 07-系统设计说明.md                  # 架构与分层设计
-│   ├── 08-数据库设计.md                    # 表结构与索引
-│   ├── 09-关键链路详细设计.md              # 主链路逐步骤设计
-│   └── 10-开发准备与Sprint0.md            # ← 当前阶段
-├── prototype/
-│   ├── static-v1/                         # 静态 HTML 原型（9 页）
-│   └── review-1/                          # 原型评审清单
-├── README.md                              # ← 当前阶段
-├── .gitignore                             # ← 当前阶段
-└── 项目任务板与迭代记录.md                # ← 当前阶段（见 docs/）
-```
-
-### 后续计划 / 待生成（开发阶段）
-
-```
-SeatBook/
-├── Controllers/
-│   ├── HomeController.cs
-│   ├── SeatController.cs
-│   ├── ReservationController.cs
-│   ├── AdminController.cs
-│   └── AdminBaseController.cs
-├── Models/
-│   ├── Entities/
-│   │   ├── User.cs
-│   │   ├── Seat.cs
-│   │   └── Reservation.cs
-│   └── ViewModels/
-│       ├── HomeViewModel.cs
-│       ├── SeatListViewModel.cs
-│       ├── SeatDetailViewModel.cs
-│       ├── ReservationViewModel.cs
-│       ├── AdminLoginViewModel.cs
-│       ├── AdminReservationsViewModel.cs
-│       └── AdminStatisticsViewModel.cs
-├── Services/
-│   ├── ISeatService.cs / SeatService.cs
-│   ├── IReservationService.cs / ReservationService.cs
-│   ├── IAdminService.cs / AdminService.cs
-│   └── IStatisticsService.cs / StatisticsService.cs
-├── Data/
-│   ├── AppDbContext.cs
-│   └── SeedData.cs
-├── Views/
-│   ├── Home/Index.cshtml
-│   ├── Seat/Index.cshtml, Detail.cshtml
-│   ├── Reservation/MyReservations.cshtml
-│   ├── Admin/Login.cshtml, Reservations.cshtml, Seats.cshtml, Statistics.cshtml
-│   └── Shared/_Layout.cshtml, _AdminLayout.cshtml, Error.cshtml
-├── wwwroot/
-│   ├── css/site.css
-│   └── js/site.js
-├── appsettings.json
-├── Program.cs
-└── SeatBook.csproj
+src/
+└── LibrarySeatReservation.Web/
+    ├── Controllers/
+    │   ├── HomeController.cs
+    │   ├── SeatController.cs
+    │   ├── ReservationController.cs
+    │   ├── AdminController.cs          # Sprint 2
+    │   └── AdminBaseController.cs       # Sprint 2
+    ├── Models/
+    │   ├── Entities/
+    │   │   ├── User.cs
+    │   │   ├── Seat.cs
+    │   │   └── Reservation.cs
+    │   └── ViewModels/
+    │       ├── HomeViewModel.cs
+    │       ├── SeatListViewModel.cs
+    │       ├── SeatDetailViewModel.cs
+    │       ├── MyReservationsViewModel.cs
+    │       ├── CreateReservationViewModel.cs
+    │       ├── AdminLoginViewModel.cs    # Sprint 2
+    │       └── AdminStatisticsViewModel.cs  # Sprint 2
+    ├── Services/
+    │   ├── ISeatService.cs / SeatService.cs
+    │   ├── IReservationService.cs / ReservationService.cs
+    │   ├── IAdminService.cs / AdminService.cs  # Sprint 2
+    │   └── IStatisticsService.cs / StatisticsService.cs
+    ├── Data/
+    │   ├── AppDbContext.cs
+    │   └── SeedData.cs
+    ├── Views/
+    │   ├── Home/Index.cshtml
+    │   ├── Seat/Index.cshtml, Detail.cshtml
+    │   ├── Reservation/MyReservations.cshtml
+    │   ├── Admin/Login.cshtml, Reservations.cshtml, Seats.cshtml, Statistics.cshtml  # Sprint 2
+    │   └── Shared/_Layout.cshtml, Error.cshtml
+    ├── wwwroot/
+    │   ├── css/site.css
+    │   └── js/site.js
+    ├── appsettings.json
+    ├── Program.cs
+    └── LibrarySeatReservation.Web.csproj
+docs/
+├── 01-项目立项单.md
+├── 02-需求分析与MVP确认.md
+├── 03-PRD-Lite.md
+├── 04-页面树与业务流程.md
+├── 05-页面卡与UI规范.md
+├── 06-静态原型与原型评审.md
+├── 07-系统设计说明.md
+├── 08-数据库设计.md
+├── 09-关键链路详细设计.md
+├── 10-开发准备与Sprint0.md
+├── 11-开发前一致性总审计.md
+├── 12-开发起步与骨架记录.md
+├── 13-用户端主链路开发记录.md          # ← 当前阶段
+└── 项目任务板与迭代记录.md
+prototype/
+├── static-v1/
+└── review-1/
 ```
 
 ## 运行前提
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- SQL Server LocalDB（随 Visual Studio 安装，或通过 [SqlLocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb) 独立安装）
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)（当前使用 6.0.428）
+- SQLite（无需额外安装，由 NuGet 包提供）
 - 浏览器（Chrome / Edge 最新版）
 
 ## 当前阶段
 
-**Sprint 0 — 开发准备阶段**（文档层就绪，代码层待执行）。
-详见 [docs/10-开发准备与Sprint0.md](docs/10-开发准备与Sprint0.md)。
+**Sprint 1 — 用户端主链路 ✅ 已完成**（查座→详情→预约→我的预约→取消，全链路可走通）。
+详见 [docs/13-用户端主链路开发记录.md](docs/13-用户端主链路开发记录.md)。
 
-本地仓库已初始化，已推送至 GitHub：`https://github.com/CJj969/library-book`
+仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
 
-
+安装依赖并启动：
+```bash
+export PATH="$HOME/.dotnet:$PATH"
+cd src/LibrarySeatReservation.Web
+dotnet run
+```
+访问 `http://localhost:5258`。
 
 里程碑：
 | 里程碑 | 状态 |
 |--------|------|
 | M1 需求与设计 | ✅ 已完成 |
-| M2 核心预约闭环 | ⏳ Sprint 1 |
-| M3 管理端功能 | 📅 Sprint 2 |
+| M2 核心预约闭环 | ✅ Sprint 1 已完成 |
+| M3 管理端功能 | ⏳ Sprint 2 |
 | M4 集成验收与提交 | 📅 Sprint 3 |
 
 ---
 
 *以下为后续持续维护段落，随开发推进增量更新。*
 
-## 已实现范围
+## 已实现功能（用户端）
 
-⚠️ 待开发阶段补充。预计于 Sprint 1~3 逐项标注完成状态。
+| 功能 | 路由 | 状态 |
+|------|------|------|
+| 首页统计 | GET / | ✅ |
+| 座位列表（区域 Tab + 状态着色） | GET /Seat/Index | ✅ |
+| 座位详情（时段占用图 + 预约表单） | GET /Seat/Detail/{id} | ✅ |
+| 提交预约（冲突检测） | POST /Reservation/Create | ✅ |
+| 我的预约（状态标签 + 取消按钮） | GET /Reservation/MyReservations | ✅ |
+| 取消预约（归属 + 状态 + 时间校验） | POST /Reservation/Cancel/{id} | ✅ |
+| 体验账号切换（导航栏下拉） | POST /Reservation/Switch | ✅ |
+| 退出登录 | POST /Reservation/Logout | ✅ |
 
 ## 数据库初始化方式
 
-⚠️ 待开发阶段补充。首次运行前需执行 `dotnet ef database update`，启动时通过 `SeedData.Initialize()` 自动插入测试数据。
+首次运行时自动建表（`EnsureCreated`）+ 种子数据填充（`SeedData.Initialize()`）。无需手动执行 migration。
+
+数据文件位于：`src/LibrarySeatReservation.Web/SeatBook.db`（已加入 `.gitignore`）
 
 ## 演示账号
 
@@ -130,4 +141,7 @@ SeatBook/
 
 ## 已知限制
 
-- ⚠️ 待开发阶段补充。
+- **无需密码验证**：体验账号通过导航栏直接切换身份，无需密码（学生账号 Seed Password=NULL）。
+- **Session 身份管理**：当前使用 Session 而非 Cookie 认证，服务重启后需重新切换。
+- **`dotnet-ef` 不可用**：.NET 6 SDK（arm64）与 `dotnet-ef`（x86_64）架构不匹配，使用 `EnsureCreated()` 替代。
+- **管理端未实现**：管理员登录、预约管理、座位 CRUD、统计页均为 Sprint 2 计划内容。

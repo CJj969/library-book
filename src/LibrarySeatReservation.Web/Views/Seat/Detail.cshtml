@@ -1,6 +1,74 @@
+@model LibrarySeatReservation.Web.Models.ViewModels.SeatDetailViewModel
 @{
     ViewData["Title"] = "座位详情";
 }
 
-<h2>座位详情</h2>
-<p class="text-muted">座位详情与预约功能将在 Sprint 1 中实现。</p>
+<div class="mb-3">
+    <a asp-action="Index" class="text-decoration-none">&larr; 返回座位列表</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h4 class="card-title">@Model.SeatNumber</h4>
+        <p class="mb-1"><strong>区域：</strong>@Model.Area</p>
+        <p class="mb-1"><strong>描述：</strong>@Model.Description</p>
+        <p class="mb-0">
+            <strong>状态：</strong>
+            @if (Model.IsActive)
+            {
+                <span class="badge bg-success">可用</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">维修中</span>
+            }
+        </p>
+    </div>
+</div>
+
+<h5 class="mb-2">时段状态（今日）</h5>
+<div class="row g-2 mb-4">
+    @foreach (var slot in Model.TimeSlots)
+    {
+        var slotClass = slot.IsOccupied ? "bg-danger text-white" : (slot.IsPast ? "bg-light text-muted" : "bg-success text-white");
+        <div class="col-4">
+            <div class="card @slotClass text-center p-2">
+                <div>@slot.SlotName</div>
+                <small>@(slot.IsOccupied ? "已预约" : (slot.IsPast ? "已过" : "空闲"))</small>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model.IsActive && Model.CurrentUserId != null)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">预约此座位</h5>
+            <form method="post" action="/Reservation/Create">
+                <input type="hidden" name="SeatId" value="@Model.Id" />
+                <div class="mb-3">
+                    <label class="form-label">预约日期</label>
+                    <input type="date" name="ReserveDate" class="form-control"
+                           min="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">时段</label>
+                    <select name="TimeSlot" class="form-select" required>
+                        <option value="">请选择时段</option>
+                        <option value="上午">上午（08:00-12:00）</option>
+                        <option value="下午">下午（13:00-17:00）</option>
+                        <option value="晚上">晚上（18:00-22:00）</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">提交预约</button>
+            </form>
+        </div>
+    </div>
+}
+else if (Model.CurrentUserId == null)
+{
+    <div class="alert alert-info">
+        请先在导航栏切换体验账号后预约
+    </div>
+}

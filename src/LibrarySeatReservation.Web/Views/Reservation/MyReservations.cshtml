@@ -1,6 +1,52 @@
+@model LibrarySeatReservation.Web.Models.ViewModels.MyReservationsViewModel
 @{
     ViewData["Title"] = "我的预约";
 }
 
-<h2>我的预约</h2>
-<p class="text-muted">预约管理功能将在 Sprint 1 中实现。</p>
+<h2 class="mb-3">我的预约</h2>
+
+@if (!Model.Reservations.Any())
+{
+    <div class="text-center py-5">
+        <p class="text-muted">你还没有预约记录，去查座预约一个吧</p>
+        <a asp-controller="Seat" asp-action="Index" class="btn btn-primary">查座预约</a>
+    </div>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var item in Model.Reservations)
+        {
+            var statusBadge = item.DisplayStatus switch
+            {
+                "已预约" => "bg-primary",
+                "已取消" => "bg-secondary",
+                "已完成" => "bg-info",
+                _ => "bg-secondary"
+            };
+
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-1">@item.SeatNumber <small class="text-muted">@item.Area</small></h6>
+                        <small class="text-muted d-block">
+                            @item.ReserveDate.ToString("yyyy-MM-dd") @item.TimeSlot
+                        </small>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge @statusBadge">@item.DisplayStatus</span>
+                    </div>
+                </div>
+                @if (item.CanCancel)
+                {
+                    <div class="mt-2">
+                        <form method="post" asp-action="Cancel" asp-route-id="@item.Id"
+                              onsubmit="return confirm('确定取消此预约吗？')" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">取消预约</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
