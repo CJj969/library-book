@@ -91,6 +91,7 @@ main              ← 稳定可发布版本，只从 dev 合并
 | 创建 SeedData | 30 min | DbContext 完成 |
 | 创建 `.gitignore` | 5 min | — |
 | `Add-Migration` + `Update-Database` | 10 min | DbContext 完成 |
+| 手动推送远端（因环境无凭据，需手动执行） | 5 min | 本地 commit 完成 |
 | 调整 `Program.cs`（注册 DI + Session + Seed 调用） | 15 min | Service 层就绪 |
 | 调整默认 `_Layout.cshtml`（用户端布局框架） | 20 min | 项目创建完成 |
 | 首次 `dotnet build` + `dotnet run` | 5 min | 全部代码就绪 |

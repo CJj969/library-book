@@ -91,7 +91,18 @@ SeatBook/
 
 ## 当前阶段
 
-**Sprint 0 — 开发准备阶段**。详见 [docs/10-开发准备与Sprint0.md](docs/10-开发准备与Sprint0.md)。
+**Sprint 0 — 开发准备阶段**（文档层就绪，代码层待执行）。
+详见 [docs/10-开发准备与Sprint0.md](docs/10-开发准备与Sprint0.md)。
+
+本地仓库已初始化并完成首次提交（`685c7ed`），`main` 和 `dev` 分支已创建，`.gitignore` 已配置。
+远端推送因环境无交互式凭据需手动执行：
+
+> ⚠️ 本地仓库已初始化并完成首次提交，远端推送需手动执行：
+> ```bash
+> git remote add origin https://github.com/CJj969/library-book
+> git push -u origin main
+> git push -u origin dev
+> ```
 
 里程碑：
 | 里程碑 | 状态 |
