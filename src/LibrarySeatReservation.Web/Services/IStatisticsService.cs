@@ -7,8 +7,17 @@ namespace LibrarySeatReservation.Web.Services
         public int ReservedToday { get; set; }
     }
 
+    public class AdminStats
+    {
+        public int TotalSeats { get; set; }
+        public int TotalReservations { get; set; }
+        public int TodayReservations { get; set; }
+        public double UtilizationRate { get; set; }
+    }
+
     public interface IStatisticsService
     {
         HomePageStats GetHomePageStats();
+        AdminStats GetAdminStats();
     }
 }

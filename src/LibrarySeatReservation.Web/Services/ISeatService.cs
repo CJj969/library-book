@@ -1,3 +1,5 @@
+using LibrarySeatReservation.Web.Models.ViewModels;
+
 namespace LibrarySeatReservation.Web.Services
 {
     public class SeatItem
@@ -42,5 +44,9 @@ namespace LibrarySeatReservation.Web.Services
         List<SeatItem> GetAllSeatsWithStatus(DateTime today);
         SeatDetailResult GetSeatDetail(int seatId, DateTime today);
         List<SeatAdminItem> GetAllSeats();
+        (bool Success, string Message) CreateSeat(string seatNumber, string area, string description);
+        (bool Success, string Message) UpdateSeat(int id, string seatNumber, string area, string description);
+        (bool Success, string Message) DeleteSeat(int id);
+        (bool Success, string Message) ToggleSeatStatus(int id);
     }
 }

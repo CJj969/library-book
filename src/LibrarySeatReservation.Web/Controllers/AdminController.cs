@@ -10,15 +10,18 @@ namespace LibrarySeatReservation.Web.Controllers
         private readonly IAdminService _adminService;
         private readonly IReservationService _reservationService;
         private readonly ISeatService _seatService;
+        private readonly IStatisticsService _statisticsService;
 
         public AdminController(
             IAdminService adminService,
             IReservationService reservationService,
-            ISeatService seatService)
+            ISeatService seatService,
+            IStatisticsService statisticsService)
         {
             _adminService = adminService;
             _reservationService = reservationService;
             _seatService = seatService;
+            _statisticsService = statisticsService;
         }
 
         [AllowAnonymous]
@@ -67,12 +70,6 @@ namespace LibrarySeatReservation.Web.Controllers
         {
             var reservations = _reservationService.GetAllReservations(statusFilter, dateFilter, areaFilter);
 
-            var areas = reservations
-                .Select(r => r.Area)
-                .Distinct()
-                .OrderBy(a => a)
-                .ToList();
-
             var availableSeats = _seatService.GetAllSeats();
             var allAreas = availableSeats
                 .Select(s => s.Area)
@@ -109,6 +106,79 @@ namespace LibrarySeatReservation.Web.Controllers
         {
             var seats = _seatService.GetAllSeats();
             return View(seats);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSeat(SeatEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "请填写必填字段";
+                return RedirectToAction("Seats");
+            }
+
+            var (success, message) = _seatService.CreateSeat(
+                model.SeatNumber, model.Area, model.Description);
+
+            if (success)
+                TempData["Success"] = message;
+            else
+                TempData["Error"] = message;
+
+            return RedirectToAction("Seats");
+        }
+
+        [HttpPost]
+        public IActionResult EditSeat(SeatEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "请填写必填字段";
+                return RedirectToAction("Seats");
+            }
+
+            var (success, message) = _seatService.UpdateSeat(
+                model.Id, model.SeatNumber, model.Area, model.Description);
+
+            if (success)
+                TempData["Success"] = message;
+            else
+                TempData["Error"] = message;
+
+            return RedirectToAction("Seats");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSeat(int id)
+        {
+            var (success, message) = _seatService.DeleteSeat(id);
+
+            if (success)
+                TempData["Success"] = message;
+            else
+                TempData["Error"] = message;
+
+            return RedirectToAction("Seats");
+        }
+
+        [HttpPost]
+        public IActionResult ToggleSeatStatus(int id)
+        {
+            var (success, message) = _seatService.ToggleSeatStatus(id);
+
+            if (success)
+                TempData["Success"] = message;
+            else
+                TempData["Error"] = message;
+
+            return RedirectToAction("Seats");
+        }
+
+        public IActionResult Statistics()
+        {
+            var stats = _statisticsService.GetAdminStats();
+            var vm = new AdminStatisticsViewModel { Stats = stats };
+            return View(vm);
         }
     }
 }

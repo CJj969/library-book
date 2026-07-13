@@ -1,4 +1,5 @@
 using LibrarySeatReservation.Web.Data;
+using LibrarySeatReservation.Web.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySeatReservation.Web.Services
@@ -89,6 +90,86 @@ namespace LibrarySeatReservation.Web.Services
                 IsActive = seat.IsActive,
                 TimeSlots = timeSlots
             };
+        }
+
+        public (bool Success, string Message) CreateSeat(string seatNumber, string area, string description)
+        {
+            if (string.IsNullOrWhiteSpace(seatNumber))
+                return (false, "座位编号不能为空");
+
+            if (string.IsNullOrWhiteSpace(area))
+                return (false, "区域不能为空");
+
+            var exists = _context.Seats.Any(s => s.SeatNumber == seatNumber);
+            if (exists)
+                return (false, "座位编号已存在");
+
+            var seat = new Seat
+            {
+                SeatNumber = seatNumber,
+                Area = area,
+                Description = description ?? "",
+                IsActive = true,
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Seats.Add(seat);
+            _context.SaveChanges();
+
+            return (true, "新增成功");
+        }
+
+        public (bool Success, string Message) UpdateSeat(int id, string seatNumber, string area, string description)
+        {
+            var seat = _context.Seats.Find(id);
+            if (seat == null)
+                return (false, "座位不存在");
+
+            if (string.IsNullOrWhiteSpace(seatNumber))
+                return (false, "座位编号不能为空");
+
+            if (string.IsNullOrWhiteSpace(area))
+                return (false, "区域不能为空");
+
+            var duplicate = _context.Seats.Any(s => s.SeatNumber == seatNumber && s.Id != id);
+            if (duplicate)
+                return (false, "座位编号已存在");
+
+            seat.SeatNumber = seatNumber;
+            seat.Area = area;
+            seat.Description = description ?? "";
+            _context.SaveChanges();
+
+            return (true, "修改成功");
+        }
+
+        public (bool Success, string Message) DeleteSeat(int id)
+        {
+            var seat = _context.Seats.Find(id);
+            if (seat == null)
+                return (false, "座位不存在");
+
+            var hasActiveReservation = _context.Reservations.Any(r =>
+                r.SeatId == id && r.Status == "已预约");
+            if (hasActiveReservation)
+                return (false, "该座位有预约记录，无法删除");
+
+            _context.Seats.Remove(seat);
+            _context.SaveChanges();
+
+            return (true, "删除成功");
+        }
+
+        public (bool Success, string Message) ToggleSeatStatus(int id)
+        {
+            var seat = _context.Seats.Find(id);
+            if (seat == null)
+                return (false, "座位不存在");
+
+            seat.IsActive = !seat.IsActive;
+            _context.SaveChanges();
+
+            return (true, seat.IsActive ? "已启用" : "已设为维修中");
         }
     }
 }

@@ -1,7 +1,40 @@
+@using LibrarySeatReservation.Web.Models.ViewModels
+@model AdminStatisticsViewModel
 @{
     ViewData["Title"] = "统计";
-    Layout = "_Layout";
 }
 
-<h2>统计</h2>
-<p class="text-muted">统计功能将在 Sprint 2 中实现。</p>
+<div class="container-fluid px-4">
+    <h4 class="mb-4">数据统计</h4>
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-4">
+                <div class="display-4 fw-bold text-primary">@Model.Stats.TotalSeats</div>
+                <div class="text-muted mt-2">总座位数</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-4">
+                <div class="display-4 fw-bold text-info">@Model.Stats.TotalReservations</div>
+                <div class="text-muted mt-2">总预约数</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-4">
+                <div class="display-4 fw-bold text-success">@Model.Stats.TodayReservations</div>
+                <div class="text-muted mt-2">今日预约数</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-4">
+                <div class="display-4 fw-bold text-warning">@Model.Stats.UtilizationRate%</div>
+                <div class="text-muted mt-2">座位利用率</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 text-muted small">
+        <p>* 利用率 = 今日已预约座位数 ÷ 可用座位数 × 100%</p>
+    </div>
+</div>

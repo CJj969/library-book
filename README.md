@@ -85,7 +85,7 @@ prototype/
 
 ## 当前阶段
 
-**Sprint 2 — 管理端功能（第 1 轮进行中，50%）**。已完成管理员登录、权限拦截、预约管理（含筛选+取消）、座位管理列表。
+**Sprint 2 — 管理端功能 ✅ 已完成**。管理员登录、预约管理（筛选+取消）、座位管理 CRUD、统计页全部完成。
 详见 [docs/14-管理端与权限开发记录.md](docs/14-管理端与权限开发记录.md)。
 
 仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
@@ -103,7 +103,7 @@ dotnet run
 |--------|------|
 | M1 需求与设计 | ✅ 已完成 |
 | M2 核心预约闭环 | ✅ Sprint 1 已完成 |
-| M3 管理端功能 | ⏳ Sprint 2（50%） |
+| M3 管理端功能 | ✅ Sprint 2 已完成 |
 | M4 集成验收与提交 | 📅 Sprint 3 |
 
 ---
@@ -135,11 +135,11 @@ dotnet run
 | 预约管理列表 + 筛选 | GET /Admin/Reservations | ✅ |
 | 管理员取消预约 | POST /Admin/Reservations/Cancel/{id} | ✅ |
 | 座位管理列表 | GET /Admin/Seats | ✅ |
-| 新增座位 | POST /Admin/Seats/Create | ⏳ T12-07 |
-| 编辑座位 | POST /Admin/Seats/Edit/{id} | ⏳ T12-08 |
-| 删除座位 | POST /Admin/Seats/Delete/{id} | ⏳ T12-09 |
-| 座位状态切换 | POST /Admin/Seats/ToggleStatus/{id} | ⏳ T12-10 |
-| 统计页 | GET /Admin/Statistics | ⏳ T12-11 ~ T12-12 |
+| 新增座位 | POST /Admin/Seats/Create | ✅ |
+| 编辑座位 | POST /Admin/Seats/Edit/{id} | ✅ |
+| 删除座位 | POST /Admin/Seats/Delete/{id} | ✅ |
+| 座位状态切换 | POST /Admin/Seats/ToggleStatus/{id} | ✅ |
+| 统计页 | GET /Admin/Statistics | ✅ |
 
 ## 数据库初始化方式
 
@@ -167,4 +167,4 @@ dotnet run
 
 ## 已知限制
 - **`dotnet-ef` 不可用**：.NET 6 SDK（arm64）与 `dotnet-ef`（x86_64）架构不匹配，使用 `EnsureCreated()` 替代。
-- **管理端部分实现**：管理员登录已完成，预约管理、座位 CRUD、统计页为 Sprint 2 剩余计划内容。
+- **手机端适配**：管理端页面为桌面优先设计，手机端未做完整适配（Sprint 3 计划）。

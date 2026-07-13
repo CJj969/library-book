@@ -23,5 +23,28 @@ namespace LibrarySeatReservation.Web.Services
                     .Count(r => r.ReserveDate == today && r.Status == "已预约")
             };
         }
+
+        public AdminStats GetAdminStats()
+        {
+            var today = DateTime.Today;
+
+            var totalSeats = _context.Seats.Count();
+            var availableSeats = _context.Seats.Count(s => s.IsActive);
+            var totalReservations = _context.Reservations.Count();
+            var todayReservations = _context.Reservations
+                .Count(r => r.ReserveDate == today && r.Status == "已预约");
+
+            var utilizationRate = availableSeats > 0
+                ? Math.Round((double)todayReservations / availableSeats * 100, 1)
+                : 0.0;
+
+            return new AdminStats
+            {
+                TotalSeats = totalSeats,
+                TotalReservations = totalReservations,
+                TodayReservations = todayReservations,
+                UtilizationRate = utilizationRate
+            };
+        }
     }
 }
