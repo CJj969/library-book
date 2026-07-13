@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SeatBook — 首页</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    /* 首页专用样式，保持 style.css 变量体系 */
+    .announcement-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .announcement-bar .announcement-icon {
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .announcement-bar .announcement-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .greeting-section {
+      padding: 20px 16px 12px;
+    }
+    .greeting-section .greeting {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .greeting-section .greeting-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .nav-card-grid .nav-card:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone-frame">
+
+  <!-- ========== 顶部导航栏 ========== -->
+  <header class="mobile-nav">
+    <span class="nav-brand">SeatBook</span>
+    <nav class="nav-links">
+      <a href="./seat-list.html" class="active">查座</a>
+      <a href="./my-reservations.html">我的预约</a>
+    </nav>
+    <select class="account-switch" aria-label="切换账号">
+      <option>学生 · 张三</option>
+      <option>管理员</option>
+    </select>
+  </header>
+
+  <!-- ========== 系统公告 ========== -->
+  <div class="announcement-bar">
+    <span class="announcement-icon">📢</span>
+    <span class="announcement-text">图书馆 3F 自习区已完成升级改造，新增 20 个充电座位</span>
+  </div>
+
+  <!-- ========== 问候区 ========== -->
+  <div class="greeting-section">
+    <div class="greeting">下午好 👋</div>
+    <div class="greeting-sub">今天也要元气满满地学习哦</div>
+  </div>
+
+  <!-- ========== 主内容 ========== -->
+  <main class="page-content">
+
+    <!-- 统计卡片 -->
+    <div class="stat-grid">
+      <div class="stat-card stat-primary">
+        <div class="stat-number">60</div>
+        <div class="stat-label">总座位</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-number">24</div>
+        <div class="stat-label">空闲中</div>
+      </div>
+      <div class="stat-card stat-warning">
+        <div class="stat-number">36</div>
+        <div class="stat-label">已预约</div>
+      </div>
+    </div>
+
+    <!-- 快捷导航卡片 -->
+    <div class="section-title">快捷操作</div>
+    <div class="nav-card-grid">
+      <a href="./seat-list.html" class="nav-card">
+        <div class="nav-card-icon icon-seat">🔍</div>
+        <div class="nav-card-text">
+          <h3>查座</h3>
+          <p>查看实时座位占用情况，快速预约</p>
+        </div>
+        <span class="nav-card-arrow">›</span>
+      </a>
+      <a href="./my-reservations.html" class="nav-card">
+        <div class="nav-card-icon icon-reserve">📋</div>
+        <div class="nav-card-text">
+          <h3>我的预约</h3>
+          <p>查看、续约或取消已有预约记录</p>
+        </div>
+        <span class="nav-card-arrow">›</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ========== 底部安全区 ========== -->
+  <div class="footer-safe"></div>
+
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

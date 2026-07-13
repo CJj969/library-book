@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>我的预约 - 图书馆座位预约系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div class="phone-frame">
+
+  <!-- ==================== 顶部导航 ==================== -->
+  <nav class="mobile-nav">
+    <a href="./index.html" class="nav-brand">SeatBook</a>
+    <div class="nav-links">
+      <a href="./seat-list.html">查座</a>
+      <a href="./my-reservations.html" class="active">我的预约</a>
+    </div>
+    <select class="account-switch">
+      <option>学生</option>
+      <option>管理员</option>
+    </select>
+  </nav>
+
+  <!-- ==================== 页面内容 ==================== -->
+  <div class="page-content">
+
+    <h1 class="page-title">我的预约</h1>
+
+    <!-- 预约列表 -->
+    <div class="reservation-list">
+
+      <!-- 预约记录 1 — ACTIVE -->
+      <div class="reservation-item" data-id="1">
+        <div class="reserve-header">
+          <span class="reserve-seat">A-06</span>
+          <span class="status-tag active">使用中</span>
+        </div>
+        <div class="reserve-details">
+          <span>2楼A区</span>
+        </div>
+        <div class="reserve-details">
+          <span>2026-07-15</span>
+          <span>上午 09:00-12:00</span>
+        </div>
+        <div class="reserve-actions">
+          <button class="btn-seat btn-seat-danger btn-seat-sm btn-cancel" data-id="1">取消预约</button>
+        </div>
+      </div>
+
+      <!-- 预约记录 2 — COMPLETED -->
+      <div class="reservation-item" data-id="2">
+        <div class="reserve-header">
+          <span class="reserve-seat">B-03</span>
+          <span class="status-tag completed">已完成</span>
+        </div>
+        <div class="reserve-details">
+          <span>2楼B区</span>
+        </div>
+        <div class="reserve-details">
+          <span>2026-07-14</span>
+          <span>下午 14:00-17:00</span>
+        </div>
+        <!-- 已完成的预约不显示操作按钮 -->
+      </div>
+
+    </div>
+
+    <!-- ============== 分隔线 ============== -->
+    <hr class="divider-seat">
+
+    <!-- ============== 空状态（其余记录） ============== -->
+    <div class="empty-state">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+      </div>
+      <h4>还没有其他预约记录</h4>
+      <p>前往座位列表选座预约，开启你的学习时光</p>
+      <a href="./seat-list.html" class="btn-seat btn-seat-primary">去选座</a>
+    </div>
+
+  </div>
+
+  <!-- ==================== 底部安全区 ==================== -->
+  <div class="footer-safe"></div>
+
+</div>
+
+<!-- ==================== Bootstrap JS ==================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ==================== 原型交互脚本 ==================== -->
+<script>
+  document.querySelectorAll('.btn-cancel').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var confirmed = confirm('确定要取消该预约吗？');
+      if (confirmed) {
+        var item = this.closest('.reservation-item');
+        var seat = item.querySelector('.reserve-seat').textContent;
+        item.querySelector('.status-tag').className = 'status-tag cancelled';
+        item.querySelector('.status-tag').textContent = '已取消';
+        this.disabled = true;
+        this.textContent = '已取消';
+        this.className = 'btn-seat btn-seat-sm';
+        this.style.background = 'var(--sub-bg)';
+        this.style.color = 'var(--text-disabled)';
+        this.style.border = '1px solid var(--border)';
+        this.style.cursor = 'default';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
