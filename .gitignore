@@ -36,6 +36,10 @@ node_modules/
 .gitee-token
 auto-sync.sh
 
+# Playwright
+playwright-report/
+test-results/
+
 # Build results
 [Dd]ebug/
 [Rr]elease/

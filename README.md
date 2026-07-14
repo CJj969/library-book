@@ -78,6 +78,7 @@ docs/
 ├── 15-功能完善与体验优化记录.md
 ├── 15-功能完善与体验优化-审计.md
 ├── 16-Sprint3-视觉对齐与验收记录.md
+├── 16-联调测试与缺陷闭环.md
 └── 项目任务板与迭代记录.md          # ← 当前阶段
 prototype/
 ├── static-v1/
@@ -92,8 +93,8 @@ prototype/
 
 ## 当前阶段
 
-**Sprint 4 — 功能完善与体验优化 ✅ 已交付（5/5 100%）。** AntiForgeryToken 安全加固、空状态与提示统一、维修中座位边界处理、Badge 色值统一、视觉细节优化。
-详见 [docs/15-功能完善与体验优化记录.md](docs/15-功能完善与体验优化记录.md)。当前 docs 编号：Sprint 3 验收报告和 Sprint 4 记录共用 "15-" 前缀。
+**Stage 16 — 联调测试与缺陷闭环 ✅ 已交付（5/5 100%）。** Playwright 自动化骨架搭建、脚本烟雾测试 9/9 通过、全链路联调验证通过、Bug 闭环、P0/P1 清零。
+详见 [docs/16-联调测试与缺陷闭环.md](docs/16-联调测试与缺陷闭环.md)。当前 docs 编号：Sprint 3 验收报告和 Sprint 4 记录共用 "15-" 前缀。
 
 仓库已推送至：`https://github.com/CJj969/library-book`（main + dev）
 
@@ -113,6 +114,7 @@ dotnet run
 | M3 管理端功能 | ✅ Sprint 2 已完成 |
 | M4 集成验收与提交 | ✅ Sprint 3（100%） |
 | M5 功能完善与体验优化 | ✅ Sprint 4（100%） |
+| M6 联调测试与缺陷闭环 | ✅ Stage 16（100%） |
 
 ---
 
@@ -182,4 +184,15 @@ dotnet run
 
 ## 已知限制
 - **`dotnet-ef` 不可用**：.NET 6 SDK（arm64）与 `dotnet-ef`（x86_64）架构不匹配，使用 `EnsureCreated()` 替代。
-- **管理端手机适配**：管理端页面为桌面优先（1200px），手机端布局需进一步优化（Sprint 4 计划）。
+- **Playwright 自动化需 msedge**：本机未安装 Edge/Chrome，Playwright `channel: 'msedge'` 不可用。安装 Edge 后可执行 `npx playwright test`。
+- **管理员 POST 需浏览器**：AntiForgeryToken 保护导致 curl 无法直接测试管理员登录（浏览器正常）。
+- **GitHub 推送不可达**：网络原因暂仅推送至 Gitee。
+
+## 自动化验证
+```bash
+# 脚本烟雾测试
+bash scripts/smoke.sh http://localhost:5258
+
+# Playwright 测试（需先安装 Microsoft Edge）
+npx playwright test --project=msedge
+```

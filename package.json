@@ -1,0 +1,28 @@
+{
+  "name": "4",
+  "version": "1.0.0",
+  "description": "一个面向高校图书馆的轻量级座位预约 Web 应用，支持学生在线查座、预约与取消，管理员管理座位与预约记录。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "smoke": "bash scripts/smoke.sh",
+    "playwright": "npx playwright test --project=msedge"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CJj969/library-book.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CJj969/library-book/issues"
+  },
+  "homepage": "https://github.com/CJj969/library-book#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}
